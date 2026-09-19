@@ -11,3 +11,15 @@ wheels/
 
 # MacOS
 .DS_Store
+
+# Claude
+.claude/
+
+# .tools
+.tools/
+
+# Unused
+unused/
+
+# Claude
+.claude/

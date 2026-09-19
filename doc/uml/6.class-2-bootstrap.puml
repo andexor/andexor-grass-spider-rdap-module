@@ -1,0 +1,94 @@
+@startuml 6.class-2-bootstrap
+
+' SPDX-License-Identifier: Apache-2.0
+' Copyright 2026 Andexor Network, Inc.
+' Author: Ed Jenkins<ed@andexor.net>
+
+title Andexor Grass Spider (AGS)\nGet Domain Registration Data\nAGS RDAP Bootstrap Service\nClass Diagrams
+
+' Colors defined by Andexor Network Design System
+
+!$ANDEXOR_BLUE_50  = "#F3F7FC"
+!$ANDEXOR_BLUE_100 = "#E7EFF8"
+!$ANDEXOR_BLUE_200 = "#C5D8EF"
+!$ANDEXOR_BLUE_300 = "#8FB6E2"
+!$ANDEXOR_BLUE_400 = "#4A8BD0"
+!$ANDEXOR_BLUE_500 = "#1A5FA8"
+
+!$OLD_GOLD_300 = "#F8D066"
+!$OLD_GOLD_500 = "#EAAA00"
+
+hide empty members
+skinparam dpi 300
+
+<style>
+
+root {
+    BackgroundColor $ANDEXOR_BLUE_200
+    LineColor $ANDEXOR_BLUE_400
+    LineThickness 4
+    Margin 20
+    RoundCorner 20
+    Shadowing 1
+}
+
+title {
+    BackgroundColor $ANDEXOR_BLUE_500
+    FontColor $ANDEXOR_BLUE_50
+    Margin 20
+    Padding 20
+}
+
+class {
+    BackgroundColor $ANDEXOR_BLUE_400
+    LineColor $ANDEXOR_BLUE_500
+}
+
+footer {
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+    LineColor $ANDEXOR_BLUE_200
+}
+
+</style>
+
+class GetDomainDataBootstrapRequest {
+    + id: string
+    + event_ts : timestamp
+    + trace_id : string
+    + span_id : string
+    + domain : string
+    + source : string
+}
+
+enum GetDomainDataRequestSource {
+    REST
+    MSG
+    AGENT
+}
+
+class GetDomainDataBootstrapResponse {
+    + id: string
+    + event_ts : timestamp
+    + trace_id : string
+    + span_id : string
+    + domain : string
+    + url : string
+    + process_status : enum
+}
+
+enum ProcessStatus {
+    UNKNOWN
+    BOOTSTRAP_ERROR
+    BOOTSTRAP_OK
+    AUTHORITATIVE_ERROR
+    AUTHORITATIVE_OK
+}
+
+GetDomainDataBootstrapRequest - GetDomainDataRequestSource
+GetDomainDataBootstrapRequest --[hidden]> GetDomainDataBootstrapResponse
+GetDomainDataBootstrapResponse - ProcessStatus
+
+footer Copyright 2026 Andexor Network, Inc.
+
+@enduml

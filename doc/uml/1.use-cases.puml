@@ -1,0 +1,117 @@
+@startuml 1.use-cases
+
+' SPDX-License-Identifier: Apache-2.0
+' Copyright 2026 Andexor Network, Inc.
+' Author: Ed Jenkins<ed@andexor.net>
+
+title Andexor Grass Spider (AGS)\nGet Domain Registration Data\nUse Cases
+
+' Colors defined by Andexor Network Design System
+
+!$ANDEXOR_BLUE_50  = "#F3F7FC"
+!$ANDEXOR_BLUE_100 = "#E7EFF8"
+!$ANDEXOR_BLUE_200 = "#C5D8EF"
+!$ANDEXOR_BLUE_300 = "#8FB6E2"
+!$ANDEXOR_BLUE_400 = "#4A8BD0"
+!$ANDEXOR_BLUE_500 = "#1A5FA8"
+
+!$OLD_GOLD_300 = "#F8D066"
+!$OLD_GOLD_500 = "#EAAA00"
+
+hide stereotype
+skinparam actorStyle awesome
+skinparam dpi 300
+
+<style>
+
+root {
+    BackgroundColor $ANDEXOR_BLUE_200
+    LineColor $ANDEXOR_BLUE_500
+    LineThickness 4
+    Margin 20
+    RoundCorner 20
+    Shadowing 1
+}
+
+title {
+    BackgroundColor $ANDEXOR_BLUE_500
+    FontColor $ANDEXOR_BLUE_50
+    LineColor $ANDEXOR_BLUE_400
+    Margin 20
+    Padding 20
+}
+
+arrow {
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+}
+
+actor {
+    BackgroundColor lightblue-$ANDEXOR_BLUE_400
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+    LineColor $ANDEXOR_BLUE_500
+}
+
+usecase {
+    BackgroundColor $ANDEXOR_BLUE_300-$ANDEXOR_BLUE_400
+    LineColor $ANDEXOR_BLUE_500
+}
+
+note {
+    BackgroundColor $ANDEXOR_BLUE_200
+    HorizontalAlignment left
+    LineColor $ANDEXOR_BLUE_400
+}
+
+.internal-agent {
+    BackgroundColor $OLD_GOLD_300-$OLD_GOLD_500
+}
+
+footer {
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+    LineColor $ANDEXOR_BLUE_200
+}
+
+</style>
+
+actor User as user
+actor Agent as agent
+actor Queue as queue
+actor Timer as timer
+
+usecase/ Get_Domain_Registration_Data <<internal-agent>> as "
+**Get Domain Registration Data**
+--
+Checks to see if a domain name is registered
+and retrieves its registration data
+"
+
+usecase Find_RDAP_Authoritative_Server as "
+**Find RDAP Authoritative Server**
+--
+Gets the link to the
+RDAP Authoritative Server
+for the given domain name
+"
+
+usecase Query_RDAP_Authoritative_Server as "
+**Query RDAP Authoritative Server**
+--
+Queries the
+RDAP Authoritative Server
+to get the registration data
+"
+
+user --> Get_Domain_Registration_Data: Chat with\na chatbot
+agent --> Get_Domain_Registration_Data: Synchronous\nSEO audit
+queue --> Get_Domain_Registration_Data: Asynchronous\nSEO audit
+timer --> Get_Domain_Registration_Data: Periodic\nMonitoring
+
+Get_Domain_Registration_Data --> Find_RDAP_Authoritative_Server: Step 1
+Get_Domain_Registration_Data --> Query_RDAP_Authoritative_Server: Step 2
+
+footer Copyright 2026 Andexor Network, Inc.
+
+@enduml

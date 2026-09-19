@@ -1,0 +1,138 @@
+@startuml 5.sequence
+
+' SPDX-License-Identifier: Apache-2.0
+' Copyright 2026 Andexor Network, Inc.
+' Author: Ed Jenkins<ed@andexor.net>
+
+title Andexor Grass Spider (AGS)\nGet Domain Registration Data\nSequence Diagram
+
+' Colors defined by Andexor Network Design System
+
+!$ANDEXOR_BLUE_50  = "#F3F7FC"
+!$ANDEXOR_BLUE_100 = "#E7EFF8"
+!$ANDEXOR_BLUE_200 = "#C5D8EF"
+!$ANDEXOR_BLUE_300 = "#8FB6E2"
+!$ANDEXOR_BLUE_400 = "#4A8BD0"
+!$ANDEXOR_BLUE_500 = "#1A5FA8"
+
+!$OLD_GOLD_300 = "#F8D066"
+!$OLD_GOLD_500 = "#EAAA00"
+
+autonumber
+hide stereotype
+skinparam actorStyle awesome
+skinparam dpi 300
+skinparam responseMessageBelowArrow true
+
+<style>
+
+root {
+    BackgroundColor $ANDEXOR_BLUE_200
+    LineColor $ANDEXOR_BLUE_500
+    LineThickness 1
+    Margin 20
+    RoundCorner 20
+    Shadowing 1
+}
+
+title {
+    BackgroundColor $ANDEXOR_BLUE_500
+    FontColor $ANDEXOR_BLUE_50
+    LineColor $ANDEXOR_BLUE_400
+    LineThickness 4
+    Margin 20
+    Padding 20
+}
+
+arrow {
+    FontStyle bold
+    LineThickness 4
+}
+
+actor {
+    BackgroundColor lightblue-$ANDEXOR_BLUE_400
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+    LineColor $ANDEXOR_BLUE_500
+    LineThickness 4
+}
+
+participant {
+    FontStyle bold
+    LineThickness 4
+}
+
+group {
+    LineThickness 4
+}
+
+sequenceDiagram {
+
+    .internal-agent {
+        BackgroundColor $ANDEXOR_BLUE_300
+        LineColor $ANDEXOR_BLUE_400
+    }
+
+    .internal-service {
+        BackgroundColor $ANDEXOR_BLUE_400
+        LineColor $ANDEXOR_BLUE_500
+    }
+
+    .external-service {
+        BackgroundColor $ANDEXOR_BLUE_500
+        FontColor $ANDEXOR_BLUE_50
+        LineColor $ANDEXOR_BLUE_400
+    }
+
+}
+
+footer {
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+    LineColor $ANDEXOR_BLUE_200
+}
+
+</style>
+
+actor User as user
+
+' Internal
+participant "AGS RDAP\nAgent" as ags_rdap_agent <<internal-agent>>
+participant "AGS RDAP\nBootstrap\nService" as ags_rdap_bootstrap_service <<internal-service>>
+participant "AGS RDAP\nAuthoritative\nService" as ags_rdap_authoritative_service <<internal-service>>
+
+' External
+participant "External RDAP\nBootstrap\nService" as external_rdap_bootstrap_service <<external-service>>
+participant "External RDAP\nAuthoritative\nService" as external_rdap_authoritative_service <<external-service>>
+
+user ->> ags_rdap_agent: Get domain registration\ndata for andexor.net
+
+|||
+
+group$OLD_GOLD_500 $ANDEXOR_BLUE_300 Step 1
+    ' request
+    ags_rdap_agent ->> ags_rdap_bootstrap_service: Find RDAP Authoritative Server\n(GetDomainDataBootstrapRequest)
+    ags_rdap_bootstrap_service ->> external_rdap_bootstrap_service: Find RDAP Authoritative Server\n(domain)
+    ' response
+    ags_rdap_bootstrap_service <<-- external_rdap_bootstrap_service: URL
+    ags_rdap_agent <<-- ags_rdap_bootstrap_service: GetDomainDataBootstrapResponse
+end
+
+|||
+
+group$OLD_GOLD_500 $ANDEXOR_BLUE_300 Step 2
+    ' request
+    ags_rdap_agent ->> ags_rdap_authoritative_service: Get Domain Registration Data\n(GetDomainDataAuthoritativeRequest)
+    ags_rdap_authoritative_service ->> external_rdap_authoritative_service: Get Domain Registration Data\n(domain)
+    ' response
+    ags_rdap_authoritative_service <<-- external_rdap_authoritative_service: Domain Registration Data
+    ags_rdap_agent <<-- ags_rdap_authoritative_service: Domain Registration Data\n(GetDomainDataAuthoritativeResponse)
+end
+
+|||
+
+user <<-- ags_rdap_agent: Domain\nRegistration Data\n(GetDomainDataResponse)
+
+footer Copyright 2026 Andexor Network, Inc.
+
+@enduml

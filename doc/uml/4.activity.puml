@@ -1,0 +1,98 @@
+@startuml 4.activity
+
+' SPDX-License-Identifier: Apache-2.0
+' Copyright 2026 Andexor Network, Inc.
+' Author: Ed Jenkins<ed@andexor.net>
+
+title Andexor Grass Spider (AGS)\nGet Domain Registration Data\nActivity Diagram
+
+' Colors defined by Andexor Network Design System
+
+!$ANDEXOR_BLUE_50  = "#F3F7FC"
+!$ANDEXOR_BLUE_100 = "#E7EFF8"
+!$ANDEXOR_BLUE_200 = "#C5D8EF"
+!$ANDEXOR_BLUE_300 = "#8FB6E2"
+!$ANDEXOR_BLUE_400 = "#4A8BD0"
+!$ANDEXOR_BLUE_500 = "#1A5FA8"
+
+!$OLD_GOLD_300 = "#F8D066"
+!$OLD_GOLD_500 = "#EAAA00"
+
+!$RETURN_OK  = %darken("#D7F0E3", 30)
+!$RETURN_ERROR = %darken("#FBE1DE", 30)
+
+skinparam dpi 300
+
+<style>
+
+root {
+    BackgroundColor $ANDEXOR_BLUE_200
+    HorizontalAlignment center
+    LineColor $ANDEXOR_BLUE_500
+    LineThickness 4
+    Margin 20
+    RoundCorner 20
+    Shadowing 1
+}
+
+title {
+    BackgroundColor $ANDEXOR_BLUE_500
+    FontColor $ANDEXOR_BLUE_50
+    LineColor $ANDEXOR_BLUE_400
+    Margin 20
+    Padding 20
+}
+
+arrow {
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+}
+
+activityDiagram {
+
+    LineColor $ANDEXOR_BLUE_500
+
+    diamond {
+        BackgroundColor $OLD_GOLD_500
+        LineColor $OLD_GOLD_300
+        LineColor $ANDEXOR_BLUE_500
+    }
+
+}
+
+footer {
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+    LineColor $ANDEXOR_BLUE_200
+}
+
+</style>
+
+start
+
+'$ANDEXOR_BLUE_400
+:Find RDAP
+Authoritative
+Server; << #4A8BD0 >>
+if (URL?) then (yes\n)
+    '$ANDEXOR_BLUE_400
+    :Get Domain
+    Registration Data; << #4A8BD0 >>
+    if (Data?) then (yes\n)
+        '$RETURN_OK
+        :Return Data; << #74CB9E >>
+        stop
+    else (no\n)
+        '$RETURN_ERROR
+        :Return Error; << #EC6E5F >>
+        stop
+    endif
+else (no\n)
+    '$RETURN_ERROR
+    :Return Error; << #EC6E5F >>
+    stop
+endif
+
+footer Copyright 2026 Andexor Network, Inc.
+
+@enduml

@@ -1,0 +1,20 @@
+HTTP/2 302 
+date: Mon, 07 Sep 2026 14:04:32 GMT
+content-type: text/html
+location: https://rdap.verisign.com/net/v1/domain/andexor.net
+access-control-allow-origin: *
+server: cloudflare
+expires: Tue, 08 Sep 2026 12:37:38 GMT
+cache-control: public, max-age=28800
+referrer-policy: origin
+via: 1.1 fly.io, 1.1 fly.io
+fly-request-id: 01M1WMRS2JP2H5B078F3T0E377-iad
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+age: 48413
+cf-cache-status: HIT
+strict-transport-security: max-age=15552000; includeSubDomains; preload
+x-content-type-options: nosniff
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Q4wmaK%2BbO8aJyYqvbvYS7B3yYKwxFvgElIsNewx2BCSUKGf%2F%2Bq2RaLLZZdFkDhOLHvGhTUv35LYg485CgCPIQmocFKBzRt4kuGJWzD%2F8u5MwC8n9fBrtGVSo5w%3D%3D"}]}
+cf-ray: a376435c9c66fc73-ATL
+alt-svc: h3=":443"; ma=86400
+

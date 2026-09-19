@@ -1,0 +1,116 @@
+@startuml 6.class-3-authoritative
+
+' SPDX-License-Identifier: Apache-2.0
+' Copyright 2026 Andexor Network, Inc.
+' Author: Ed Jenkins<ed@andexor.net>
+
+title Andexor Grass Spider (AGS)\nGet Domain Registration Data\nAGS RDAP Authoritative Service\nClass Diagrams
+
+' Colors defined by Andexor Network Design System
+
+!$ANDEXOR_BLUE_50  = "#F3F7FC"
+!$ANDEXOR_BLUE_100 = "#E7EFF8"
+!$ANDEXOR_BLUE_200 = "#C5D8EF"
+!$ANDEXOR_BLUE_300 = "#8FB6E2"
+!$ANDEXOR_BLUE_400 = "#4A8BD0"
+!$ANDEXOR_BLUE_500 = "#1A5FA8"
+
+!$OLD_GOLD_300 = "#F8D066"
+!$OLD_GOLD_500 = "#EAAA00"
+
+hide empty members
+skinparam dpi 300
+
+<style>
+
+root {
+    BackgroundColor $ANDEXOR_BLUE_200
+    LineColor $ANDEXOR_BLUE_400
+    LineThickness 4
+    Margin 20
+    RoundCorner 20
+    Shadowing 1
+}
+
+title {
+    BackgroundColor $ANDEXOR_BLUE_500
+    FontColor $ANDEXOR_BLUE_50
+    Margin 20
+    Padding 20
+}
+
+class {
+    BackgroundColor $ANDEXOR_BLUE_400
+    LineColor $ANDEXOR_BLUE_500
+}
+
+footer {
+    FontColor $ANDEXOR_BLUE_500
+    FontStyle bold
+    LineColor $ANDEXOR_BLUE_200
+}
+
+</style>
+
+class GetDomainDataAuthoritativeRequest {
+    + id: string
+    + event_ts : timestamp
+    + trace_id : string
+    + span_id : string
+    + domain : string
+    + source : string
+    + url : string
+}
+
+enum GetDomainDataRequestSource {
+    REST
+    MSG
+    AGENT
+}
+
+class GetDomainDataAuthoritativeResponse {
+    + id: string
+    + event_ts : timestamp
+    + trace_id : string
+    + span_id : string
+    + domain : string
+    + handle : string
+    + ldhName : string
+    + links_self : string
+    + links_related : string
+    + status : string
+    + events_registration : timestamp
+    + events_expiration : timestamp
+    + events_last_changed : timestamp
+    + events_last_update_of_RDAP_database : timestamp
+    + secureDNS : boolean
+    + nameservers_1 : string
+    + nameservers_2 : string
+    + nameservers_3 : string
+    + nameservers_4 : string
+    + process_status : enum
+    + domain_status : enum
+}
+
+enum ProcessStatus {
+    UNKNOWN
+    BOOTSTRAP_ERROR
+    BOOTSTRAP_OK
+    AUTHORITATIVE_ERROR
+    AUTHORITATIVE_OK
+}
+
+enum DomainStatus {
+    UNKNOWN
+    NOT_REGISTERED
+    IS_REGISTERED
+}
+
+GetDomainDataAuthoritativeRequest - GetDomainDataRequestSource
+GetDomainDataAuthoritativeRequest --[hidden]> GetDomainDataAuthoritativeResponse
+GetDomainDataAuthoritativeResponse - ProcessStatus
+GetDomainDataAuthoritativeResponse -- DomainStatus
+
+footer Copyright 2026 Andexor Network, Inc.
+
+@enduml

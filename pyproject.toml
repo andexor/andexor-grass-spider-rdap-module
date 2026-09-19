@@ -1,0 +1,33 @@
+[project]
+name = "andexor-grass-spider-rdap-module"
+version = "1.0.0"
+description = "Checks to see if a domain name is registered and retrieves its registration data"
+readme = "README.md"
+authors = [
+    { name = "Ed Jenkins", email = "ed@andexor.net" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "httpx[http2]>=0.28.1",
+    "pip-licenses>=5.5.5",
+    "whodap>=0.1.16",
+]
+license = 'Apache-2.0'
+license-files = ['LICENSE']
+keywords = ["Andexor", "Grass Spider", "SEO", "domain"]
+
+[project.scripts]
+andexor-grass-spider-rdap-module = "andexor_grass_spider_rdap_module:main"
+
+[project.urls]
+homepage = "https://andexor.net"
+documentation = "https://andexor.net"
+source = "https://github.com/andexor/andexor-grass-spider-rdap-module"
+issues = "https://github.com/andexor/andexor-grass-spider-rdap-module/issues"
+
+[build-system]
+requires = ["uv_build>=0.12.4,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+exclude-newer = "1 week"
