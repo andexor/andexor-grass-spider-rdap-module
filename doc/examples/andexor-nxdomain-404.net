@@ -1,0 +1,5 @@
+HTTP/1.1 404 Not Found
+Content-Type: application/rdap+json
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=15768000; includeSubDomains; preload
+

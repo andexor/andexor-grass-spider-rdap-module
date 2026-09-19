@@ -1,3 +1,3 @@
-# Andexor Base Template
+# Andexor Grass Spider RDAP Module
 
-This project is the skeleton of all other projects created by Andexor Network, Inc, providing starter files necessary for licensing, attribution, etc.
+Queries RDAP services to get domain registration data for a domain
