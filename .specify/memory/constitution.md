@@ -15,6 +15,17 @@ Sync Impact Report
 
 # Andexor Grass Spider RDAP Module Constitution
 
+## Purpose
+
+This is part of the Andexor Grass Spider
+collection of services and agents that
+Andexor Network, Inc., uses for SEO audits
+and routine monitoring.
+
+This repo is for hosting documentation only.
+All functionality described here
+is to be implemented in other repos.
+
 ## Core Principles
 
 ### I. Specification-First Development
