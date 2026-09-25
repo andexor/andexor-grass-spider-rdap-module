@@ -2,10 +2,11 @@
 # Copyright 2026 Andexor Network, Inc.
 # Author: Ed Jenkins<ed@andexor.net>
 
-from fastapi import APIRouter, FastAPI
+from fastapi import FastAPI
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
+from . import api
 
 # Initialize FastAPI.
 app = FastAPI(
@@ -40,6 +41,7 @@ async def custom_swagger_ui_html():
     )
 
 # Configures OpenAPI documentation.
+# This can not be declared as async.
 def custom_openapi():
     """
         Configures OpenAPI documentation.
@@ -51,10 +53,10 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title="Andexor Grass Spider RDAP Module",
-        version="1.0.0",
-        summary="Andexor Grass Spider RDAP Module",
-        description="OpenAPI Documentation",
+        title=app.title,
+        version=app.version,
+        summary=app.summary,
+        description=app.description,
         routes=app.routes,
     )
     app.openapi_schema = openapi_schema
@@ -73,20 +75,8 @@ async def health():
     """
     return {"status": "OK"}
 
-# Create a router for REST APIs.
-api_router = APIRouter(prefix="/api/v1")
-app.include_router(api_router)
+# Add the API router first.
+app.include_router(api.api)
 
-# Mount the documentation directory.
+# Mount the documentation directory last.
 app.mount("/", StaticFiles(directory="doc", html=True), name="doc")
-
-#######
-# API #
-#######
-
-@api_router.get("/items/{item_id}")
-async def read_item(item_id: int, q: str = ""):
-    return {
-        "item_id": str(item_id),
-        "query_param": q
-    }
