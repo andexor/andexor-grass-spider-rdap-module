@@ -8,20 +8,22 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
-    "httpx[http2]>=0.28.1",
+    "a2wsgi>=1.10.10",
+    "fastapi[standard]>=0.141.1",
     "pip-licenses>=5.5.5",
-    "whodap>=0.1.16",
+    "uvicorn[standard]>=0.53.0",
+    "zttp>=0.0.33",
 ]
 license = 'Apache-2.0'
 license-files = ['LICENSE']
 keywords = ["Andexor", "Grass Spider", "SEO", "domain"]
 
 [project.scripts]
-andexor-grass-spider-rdap-module = "andexor_grass_spider_rdap_module:main"
+andexor-grass-spider-rdap-module = "app.main:app"
 
 [project.urls]
-homepage = "https://andexor.net"
-documentation = "https://andexor.net"
+homepage = "https://andexor.net/"
+documentation = "https://andexor.net/"
 source = "https://github.com/andexor/andexor-grass-spider-rdap-module"
 issues = "https://github.com/andexor/andexor-grass-spider-rdap-module/issues"
 
@@ -31,3 +33,6 @@ build-backend = "uv_build"
 
 [tool.uv]
 exclude-newer = "1 week"
+
+[tool.fastapi]
+entrypoint = "app.main:app"

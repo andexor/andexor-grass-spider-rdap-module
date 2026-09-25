@@ -6,15 +6,17 @@
 
 # Modify and run this to add new dependencies.
 
-# httpx
-# [HTTPX](https://www.python-httpx.org/)
-uv --quiet add httpx
-uv --quiet add httpx[http2]
-
-# whodap
-# [whodap](https://pypi.org/project/whodap/)
-# [whodap](https://github.com/pogzyb/whodap)
-uv --quiet add whodap
+# FastAPI
+# [FastAPI](https://fastapi.tiangolo.com/)
+# [fastapi](https://github.com/fastapi/fastapi)
+# [zttp](https://pypi.org/project/zttp/0.0.17/)
+# [zttp](https://github.com/Kludex/zttp)
+# [gunicorn](https://gunicorn.org/)
+# [gunicorn](https://github.com/benoitc/gunicorn)
+uv --quiet add "fastapi[standard]"
+uv --quiet add "uvicorn[standard]"
+uv --quiet add "zttp"
+uv --quiet add "a2wsgi"
 
 # To get a license report, you can use pip-licenses.
 # It is not required for the project to run,
