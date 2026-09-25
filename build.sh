@@ -5,8 +5,8 @@
 # Author: Ed Jenkins<ed@andexor.net>
 
 # variables
-CWD=$(basename "$PWD")
-IMAGE=andexor/${CWD}
+APP=$(basename "$PWD")
+IMAGE=andexor/${APP}
 VERSION=1
 
 # See if there is an existing image.

@@ -5,9 +5,9 @@
 # Author: Ed Jenkins<ed@andexor.net>
 
 # variables
-CWD=$(basename "$PWD")
-IMAGE=andexor/${CWD}
+APP=$(basename "$PWD")
+IMAGE=andexor/${APP}
 VERSION=1
 
 # run
-docker run --rm ${IMAGE}:${VERSION}
+docker run --rm -p 8000:8000 ${IMAGE}:${VERSION}

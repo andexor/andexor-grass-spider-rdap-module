@@ -140,3 +140,11 @@ If you have not installed uv yet, install it first.
 > Run `install-uv.sh`
 
 > Run `install-spec-kit.sh`
+
+## FastAPI And uvicorn
+
+FastAPI/uvicorn is used for hosting
+the REST APIs and live documentation.
+This is added to the project when you
+
+> Run ./setup.sh.
