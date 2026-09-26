@@ -102,6 +102,25 @@ keeps deployment and container image size predictable across that collection.
 - Licensing: Apache License, Version 2.0. All source files and dependencies MUST remain
   compatible with this license; license and dependency audit reports under `reports/`
   MUST be kept current (e.g., via `install-uv.sh`/audit tooling) as dependencies change.
+- Use Pydantic to build data models. Add constraints for validation where needed.
+- Use FastAPI to host REST APIs.
+- Use uvicorn to run the app.
+- Run the app in a Docker container using the supplied Dockerfile.
+- Write docstring comments for all Python classes and methods.
+  Follow the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings)
+- When defining REST APIs, document all possible responses,
+  including the expected happy path response as well as
+  responses that represent or wrap all kinds of exceptions.
+- All REST APIs should return a JSONResponse.
+  This way you can convert positive outcome classes to JSON with a 200 response
+  and you can also catch exceptions and convert them to JSON
+  with an appropriate HTTP response code.
+  The method signature remains the same either way.
+- OpenAPI documentation is customized to use our custom branded favicon file.
+- Disable ReDoc since it does not add any value above what we get with OpenAPI.
+- Write integration tests for every possible response for every API.
+- Architecture documentation is hosted statically with the app
+  by mounting a static directory as the web root directory.
 
 ## Development Workflow & Quality Gates
 
@@ -137,4 +156,4 @@ verify compliance with the principles above; any deviation MUST be explicitly ju
 in the PR description or it MUST be rejected. Use `CONTRIBUTING.md` for day-to-day
 contributor workflow guidance and `SECURITY.md` for vulnerability disclosure procedure.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-22 | **Last Amended**: 2026-09-22
+**Version**: 1.0.1 | **Ratified**: 2026-09-22 | **Last Amended**: 2026-09-26

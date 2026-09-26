@@ -11,8 +11,6 @@
 # [fastapi](https://github.com/fastapi/fastapi)
 # [zttp](https://pypi.org/project/zttp/0.0.17/)
 # [zttp](https://github.com/Kludex/zttp)
-# [gunicorn](https://gunicorn.org/)
-# [gunicorn](https://github.com/benoitc/gunicorn)
 uv --quiet add "fastapi[standard]"
 uv --quiet add "uvicorn[standard]"
 uv --quiet add "zttp"
