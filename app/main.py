@@ -2,11 +2,13 @@
 # Copyright 2026 Andexor Network, Inc.
 # Author: Ed Jenkins<ed@andexor.net>
 
+from dataclasses import dataclass
+
 from fastapi import FastAPI
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
-from . import api
+from app.hello import rest
 
 # Initialize FastAPI.
 app = FastAPI(
@@ -65,18 +67,26 @@ def custom_openapi():
 # Configure OpenAPI documentation.
 app.openapi = custom_openapi
 
-# Health Check
-@app.get("/health")
-async def health():
+# Health check response.
+@dataclass
+class HealthResponse(dict[str, str]):
+    status: str
+
+# Version-independent health check
+@app.get(
+    path="/health",
+    tags=["Health"]
+)
+async def health() -> HealthResponse:
     """
     Health Check.
 
     Returns OK.
     """
-    return {"status": "OK"}
+    return HealthResponse("UP")
 
-# Add the API router first.
-app.include_router(api.api)
+# Add the REST API router first.
+app.include_router(rest.api)
 
 # Mount the documentation directory last.
 app.mount("/", StaticFiles(directory="doc", html=True), name="doc")
